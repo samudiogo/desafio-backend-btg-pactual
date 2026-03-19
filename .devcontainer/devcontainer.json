@@ -27,7 +27,7 @@
 		}
 	},
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install -g nx && nx init && npm install -D @nx/dotnet",
+	"postCreateCommand": "npm install -g nx && npm install -D @nx/dotnet",
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
