@@ -3,37 +3,42 @@
 {
 	"name": "C# (.NET)",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/dotnet:2-10.0-noble",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {},
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
-
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [5000, 5001],
-	// "portsAttributes": {
-	//		"5001": {
-	//			"protocol": "https"
-	//		}
-	// }
-
+	"forwardPorts": [
+		5000,
+		5001,
+		15672
+	],
+	"portsAttributes": {
+		"5001": {
+			"protocol": "https"
+		},
+		"15672": {
+			"label": "RabbitMQ Management UI"
+		}
+	},
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "npm install -g nx && nx init && npm install -D @nx/dotnet",
-
 	// Configure tool-specific properties.
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"ms-dotnettools.csharp",
 				"ms-dotnettools.csdevkit",
-				"nrwl.angular-console"
-				]
+				"nrwl.angular-console",
+				"redhat.vscode-yaml"
+			]
 		}
 	}
-
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }

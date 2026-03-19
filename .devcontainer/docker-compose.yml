@@ -1,0 +1,30 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/dotnet:2-10.0-noble
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    networks:
+      - dev-network
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672" #amqp
+      - "15672:15672" #management ui
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+    networks:
+      - dev-network
+
+networks:
+  dev-network:
+    driver: bridge
