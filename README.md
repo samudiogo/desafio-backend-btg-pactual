@@ -1,109 +1,75 @@
-# DesafioBackendBtgPactual
+# Desafio Engenheiro de software - BTG Pactual
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+## Instruções
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+1. Leia esse documento com atenção antes de iniciar as atividades.
+2. Você tem 1 dia, para entregar o plano de trabalho (item 1).
+3. Você tem até 7 dias corridos para concluir as atividades aqui solicitadas.
+   Caso não consiga concluir todas as atividades, por favor, entregue o que foi feito até a data solicitada.
+4. Crie um repositório no Github para seu projeto e mantenha o seu projeto como público.
+5. Ao concluir as etapas de entrega, envie um e-mail, com o assunto "[DESAFIO BTG] - SEU NOME COMPLETO", para: ****@btgpactual.com" 
+6. Fique à vontade para utilizar tecnologias, frameworks e técnicas não citadas nas atividades ou substituir as que julgar necessário. Informe em seu relatório as modificações e os motivos.
+7. A aplicação deve ser entregue “rodando”, com instruções para interagir com ela.
+8. Recomendamos a utilização do Docker (http://www.docker.com) para montagem do ambiente (MongoDb, RabbitMQ, Web Application, etc.)
+   Caso opte pela utilização do Docker, crie uma única imagem com todos os containers e compartilhe em seu relatório final.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## Escopo
+Processar pedidos e gerar relatório.
 
-## Generate a library
+## Atividades
+1. Elabore e entregue um plano de trabalho.
+   - Crie suas atividades em tasks
+   - Estime horas
+2. Crie uma aplicação, na tecnologia de sua preferência (JAVA, DOTNET, NODEJS)
+3. Modele e implemente uma base de dados (PostgreSQL, MySQL, MongoDB).
+4. Crie um micro serviço que consuma dados de uma fila RabbitMQ e grave os dados para conseguir listar as informações:
+   - Valor total do pedido
+   - Quantidade de Pedidos por Cliente
+   - Lista de pedidos realizados por cliente
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
-
-## Run tasks
-
-To build the library use:
-
-```sh
-npx nx build pkg1
-```
-
-To run any task with Nx use:
-
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
+Exemplo da mensagem que deve ser consumida:
 
 ```
-npx nx release
+   {
+       "codigoPedido": 1001,
+       "codigoCliente":1,
+       "itens": [
+           {
+               "produto": "lápis",
+               "quantidade": 100,
+               "preco": 1.10
+           },
+           {
+               "produto": "caderno",
+               "quantidade": 10,
+               "preco": 1.00
+           }
+       ]
+   }
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+5. Crie uma API REST, em que permita o consultar as seguintes informações:
+   - Valor total do pedido
+   - Quantidade de Pedidos por Cliente
+   - Lista de pedidos realizados por cliente
+   
 
-## Keep TypeScript project references up to date
-
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
-
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-## Set up CI!
-
-### Step 1
-
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
-```
-
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
-
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
-```
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+6. Relatório Técnico explicando de forma sumarizada, considerando:
+   - Plano de Trabalho (previsto vs realizado)
+   - Caso haja algum desvio entre o planejamento original e a execução, explique o que houve.
+   - Caso o plano de trabalho foi seguido sem desvio, comente os motivos para esse resultado.
+   - Tecnologias utilizadas
+   - Linguagens, Versões, IDE's, SO's
+   - Diagrama de arquitetura
+   - Modelagem da base de dados
+   - Diagrama de implantação da solução
+   - Diagrama de infra com os recursos de cloud utilizados (máquina, SO, produtos específicos, etc.)
+   - Evidência de Testes funcionais da aplicação
+   - Publique os códigos gerados, em seu perfil do https://github.com/
+   - Cite no relatório: 
+     - O seu perfil gitHub e a(s) URL(s) onde se encontram os códigos gerados
+     - Referências utilizadas
+     - Demais itens que você julgar relevante (Framework ou técnicas de testes, metodologias, etc.)
+     - Se foi utilizado o Docker, para montagem do Ambiente, publique em seu perfil do http://hub.docker.com as imagens finais
+     - Cite no relatório: O seu perfil dockerHub e a(s) URL(s) onde se encontram as imagens geradas

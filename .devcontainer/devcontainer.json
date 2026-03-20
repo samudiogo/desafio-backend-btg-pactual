@@ -31,7 +31,8 @@
 				"ms-dotnettools.csharp",
 				"ms-dotnettools.csdevkit",
 				"nrwl.angular-console",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"Anthropic.claude-code"
 			]
 		}
 	}
