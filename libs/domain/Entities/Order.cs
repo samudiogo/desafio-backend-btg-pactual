@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace BtgPactual.Domain.Entities;
 class Order
 {
     public int CodigoPedido { get; private set; }

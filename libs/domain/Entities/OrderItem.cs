@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace BtgPactual.Domain.Entities;
 
 class OrderItem
 {

@@ -1,4 +1,4 @@
-namespace Domain.Interfaces;
+namespace BtgPactual.Domain.Interfaces;
 
 public interface IOrderRepository
 {
