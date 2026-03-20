@@ -24,7 +24,7 @@
 			"label": "RabbitMQ Management UI"
 		}
 	},
-	// "postCreateCommand": "npm install -g nx && npm install -D @nx/dotnet",
+	"postCreateCommand": "npm install -g nx && npm install -D @nx/dotnet",
 	"customizations": {
 		"vscode": {
 			"extensions": [
