@@ -1,18 +1,16 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
 {
-	"name": "C# (.NET)",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"name": "Desafio Engenheiro de software - BTG Pactual",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind"
+	],
 	"features": {
 		"ghcr.io/devcontainers/features/node:1": {},
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
 		5000,
 		5001,
@@ -26,9 +24,7 @@
 			"label": "RabbitMQ Management UI"
 		}
 	},
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install -g nx && nx init && npm install -D @nx/dotnet",
-	// Configure tool-specific properties.
+	"postCreateCommand": "npm install -g nx && npm install -D @nx/dotnet",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -39,6 +35,4 @@
 			]
 		}
 	}
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
 }

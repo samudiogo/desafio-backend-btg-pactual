@@ -2,7 +2,7 @@ services:
   app:
     image: mcr.microsoft.com/devcontainers/dotnet:2-10.0-noble
     volumes:
-      - ../..:/workspaces:cached
+      - ../..:/workspaces:cached    
     command: sleep infinity
     networks:
       - dev-network
