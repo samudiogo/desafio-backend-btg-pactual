@@ -10,20 +10,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHostedService<OrderConsumerWorker>();
 
-
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+app.MapOpenApi();
+app.MapScalarApiReference(opt =>
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference(opt =>
-    {
-        opt.WithTitle("Desafio Engenheiro de software - BTG Pactual")
-           .ForceDarkMode()
-           .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
-           .WithTheme(ScalarTheme.BluePlanet);
-    });
-}
+    opt.WithTitle("Desafio Engenheiro de software - BTG Pactual")
+        .ForceDarkMode()
+        .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
+        .WithTheme(ScalarTheme.BluePlanet);
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

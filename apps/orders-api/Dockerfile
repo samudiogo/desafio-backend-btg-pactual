@@ -2,7 +2,6 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 COPY . .
-RUN ls -R
 RUN dotnet restore apps/orders-api/orders-api.csproj
 RUN dotnet publish apps/orders-api/orders-api.csproj \
     -c Release -o /app/publish
@@ -13,4 +12,4 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "BtgPactual.OrdersApi.dll"]
+ENTRYPOINT ["dotnet", "orders-api.dll"]
