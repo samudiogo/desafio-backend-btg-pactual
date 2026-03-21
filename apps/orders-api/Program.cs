@@ -1,23 +1,31 @@
+using BtgPactual.Infrastructure.DI;
+using BtgPactual.OrdersApi.Workers;
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHostedService<OrderConsumerWorker>();
+
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference(opt =>
+    {
+        opt.WithTitle("Desafio Engenheiro de software - BTG Pactual")
+           .ForceDarkMode()
+           .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
+           .WithTheme(ScalarTheme.BluePlanet);
+    });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
