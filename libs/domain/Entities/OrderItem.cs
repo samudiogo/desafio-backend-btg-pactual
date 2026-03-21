@@ -1,6 +1,6 @@
 namespace BtgPactual.Domain.Entities;
 
-class OrderItem
+public class OrderItem
 {
     public string Produto { get; private set; }
     public int Quantidade { get; private set; }

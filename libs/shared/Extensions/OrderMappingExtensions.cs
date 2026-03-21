@@ -5,7 +5,7 @@ namespace BtgPactual.Shared.Extensions;
 
 public static class OrderMappingExtensions
 {
-    public static OrderResponse ToResponse(this Order order) => new ()
+    public static OrderResponse ToResponse(this Order order) => new()
     {
         CodigoPedido = order.CodigoPedido,
         CodigoCliente = order.CodigoCliente,
@@ -17,5 +17,5 @@ public static class OrderMappingExtensions
             Preco = i.Preco,
             ValorTotal = i.ValorTotal
         }).ToList()
-    };    
+    };
 }

@@ -1,8 +1,8 @@
 namespace BtgPactual.Shared.Responses;
 
-public class OrderResponse
+public class ClientSummaryResponse
 {
     public int CodigoCliente { get; set; }
-    public int QuantidadePedidos { get; set; }
-    public List<OrderResponse> Pedidos { get; set; } = [];
+    public decimal QuantidadePedidos{ get; set; }
+    public IList<OrderResponse> Pedidos { get; set; } = [];
 }

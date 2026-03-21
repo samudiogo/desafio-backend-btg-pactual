@@ -1,5 +1,5 @@
 namespace BtgPactual.Domain.Entities;
-class Order
+public class Order
 {
     public int CodigoPedido { get; private set; }
     public int CodigoCliente { get; private set; }

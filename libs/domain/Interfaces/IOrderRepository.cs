@@ -1,9 +1,11 @@
+using BtgPactual.Domain.Entities;
+
 namespace BtgPactual.Domain.Interfaces;
 
 public interface IOrderRepository
 {
     Task SaveAsync(Order order);
-    Task<Order?> GetOrderByIdAsync(int orderId);
-    Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(int customerId);
-    
+    Task<IEnumerable<Order>> GetByClienteAsync(int codigoCliente);
+    Task<Order?> GetByCodigoPedidoAsync(int codigoPedido);
+
 }
