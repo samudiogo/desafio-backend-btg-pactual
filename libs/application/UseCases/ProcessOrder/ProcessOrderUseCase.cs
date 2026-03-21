@@ -4,11 +4,11 @@ using BtgPactual.Shared.DTOs;
 
 namespace BtgPactual.Application.UseCases.ProcessOrder;
 
-public class ProcesssOrderUseCase
+public class ProcessOrderUseCase
 {
     private readonly IOrderRepository _repository;
 
-    public ProcesssOrderUseCase(IOrderRepository repository)
+    public ProcessOrderUseCase(IOrderRepository repository)
     {
         _repository = repository;
     }
