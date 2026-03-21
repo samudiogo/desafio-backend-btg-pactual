@@ -5,6 +5,7 @@
   <Folder Name="/libs/">
     <Project Path="libs/application/application.csproj" />
     <Project Path="libs/domain/domain.csproj" />
+    <Project Path="libs/infrastructure/infrastructure.csproj" />
     <Project Path="libs/shared/shared.csproj" />
   </Folder>
 </Solution>
