@@ -49,8 +49,48 @@
 - Docker Engine 24.x, Docker Compose 2.x
 
 ## 4. Diagrama de arquitetura
-- Placeholder: `images/diag-arquitetura.png`
-- Descrição: WebAPI + Worker + RabbitMQ + MongoDB com camadas de dependência Clean Architecture (Apresentação -> Application -> Domain -> Infrastructure)
+```mermaid
+graph TD
+    Client[Cliente HTTP] --> API[orders-api :8080]
+
+    subgraph Container: orders-api-prd
+        direction TB
+        subgraph Presentation
+            API
+            Controller[OrderController]
+            Worker[OrderConsumerWorker]
+        end
+        subgraph Application
+            UC1[ProcessOrderUseCase]
+            UC2[GetOrderTotalUseCase]
+            UC3[GetOrdersByClientUseCase]
+        end
+        subgraph Infrastructure
+            Consumer[RabbitMqConsumer]
+            Data[OrderRepository]
+        end
+        API --> Controller
+        Controller --> UC2
+        Controller --> UC3
+        Worker --> Consumer
+        Consumer --> UC1
+    end
+
+    subgraph Infra Externa
+        subgraph Container: rabbitmq-prd
+            MQ[RabbitMQ]
+        end
+        subgraph Container: mongodb-prd
+            DB[(MongoDB)]
+        end
+    end
+
+    MQ --> Worker
+    UC1 --> Data
+    UC2 --> Data
+    UC3 --> Data
+    Data --> DB
+```
 
 ## 5. Modelagem da base de dados
 - Tecnologia: MongoDB
@@ -74,13 +114,42 @@
 - Index sugeridos: `codigoPedido` (único), `codigoCliente` (consulta por cliente).
 
 ## 6. Diagrama de implantação da solução
-- Placeholder: `images/diag-implantacao.png`
-- Informar containers: `mongo`, `rabbitmq`, `orders-api`.
-- Rede: bridge interna do Docker Compose.
+```mermaid
+sequenceDiagram
+    actor Client as Cliente HTTP
+    participant API as Orders API
+    participant MQ as RabbitMQ
+    participant DB as MongoDB
 
-## 7. Diagrama de infra com recursos de cloud
-- Placeholder: `images/diag-infra-cloud.png`
-- Exemplo (se não usar nuvem, descrever VM local, WSL2 e container host local).
+    Client->>API: GET /api/orders/{id}/total
+    API->>DB: GetByCodigoPedidoAsync
+    DB-->>API: Order
+    API-->>Client: OrderResponse
+
+    MQ->>API: Mensagem: OrderCreated
+    API->>DB: SaveAsync(Order)
+```
+
+## 7. Diagrama de infra com recursos de Cloud
+Não usei nenhum recurso de cloud neste cenário, apenas docker:
+```mermaid
+graph TD
+    subgraph Docker
+        direction TB
+        subgraph Container: btg-challenge-orders-api-prd
+            direction TB
+            API["api/orders/*"]
+            Worker[OrderConsumerWorker]
+        end
+        subgraph Container: btg-challenge-rabbitmq-prd
+            AMQP
+            MgmtUI[management-page :15672]
+        end
+        subgraph Container: btg-challenge-mongodb-prd
+            DB[(MongoDB :27017)]
+        end
+    end  
+```
 
 ## 8. Evidência de testes funcionais da aplicação
 - Teste de fluxo básico realizado:
