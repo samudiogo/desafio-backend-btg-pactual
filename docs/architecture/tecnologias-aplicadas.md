@@ -1,4 +1,4 @@
-##Tecnologias Aplicadas:
+## Tecnologias Aplicadas:
 - IDE VS Code
 - Linux Ubuntu (WSL)
 - Docker Linux
